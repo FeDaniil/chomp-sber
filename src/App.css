@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 30px 0 0;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.start {
+    height: calc(min(100vh - 110px, 300vw));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.start-chocolate {
+    margin-top: 3vh;
+    height: min(30vh, 70vw);
+}
+
+.start-text-wrapper {
+    margin: 0 5vw 0 5vw;
+}
+
+.start-header {
+    font-size: clamp(1rem, 2.5vh, 5vw);
+    text-align: center;
+}
+
+.start-text-wrapper p {
+    text-align: left;
+}
