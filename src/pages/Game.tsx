@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import {Button, Container, H1} from "@salutejs/plasma-ui";
 import {CharacterName} from "@salutejs/scenario";
-import {ChompGame} from "../ChompGame";
+import {ChompGame} from "../logic/ChompGame";
 import GameStatus from "../components/GameStatus";
 import GameBoard from "../components/GameBoard";
 import RulesOverlay from "../components/RulesOverlay";
@@ -29,7 +29,7 @@ export default function Game({
         <GameWrapper>
             <Container><H1 style={{textAlign: "center"}}>Отравленная шоколадка</H1></Container>
             <Container><GameStatus gameState={game.state} characterName={characterName}></GameStatus></Container>
-            <GameBoard game={game} setGame={setGame}></GameBoard>
+            <GameBoard game={game} setGame={setGame} difficulty={difficulty}></GameBoard>
             <Container>{game.finished ?
                 <Button text="Новая игра" size="l" view="overlay" stretch={true} contentLeft={<IconReset/>}
                         onClick={setStartPage}></Button> :

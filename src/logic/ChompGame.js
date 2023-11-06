@@ -24,8 +24,24 @@ export class ChompGame {
         return this.state === ChompGame.WIN_PLAYER_1 || this.state === ChompGame.WIN_PLAYER_2;
     }
 
+    get currentPlayer() {
+        return this.state === ChompGame.MOVE_PLAYER_1 ? 1 : (this.state === ChompGame.MOVE_PLAYER_2 ? 2 : 0);
+    }
+
+    get winner() {
+        return this.state === ChompGame.WIN_PLAYER_1 ? 1 : (this.state === ChompGame.WIN_PLAYER_2 ? 2 : 0);
+    }
+
     isPoison(index) {
         return index === this.rows * this.columns - this.rows;
+    }
+
+    isValidMove(index) {
+        return this.field[index] && !this.isPoison(index);
+    }
+
+    get validMoves() {
+        return this.field.map((isAlive, i) => (isAlive && !this.isPoison(i)) ? i : -1).filter(i => i !== -1);
     }
 
     indexToXY(index) {

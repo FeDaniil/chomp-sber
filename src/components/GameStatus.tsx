@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import {TextL} from "@salutejs/plasma-ui";
-import {ChompGame} from "../ChompGame";
+import {ChompGame} from "../logic/ChompGame";
 
 const GameStatusTextL = styled(TextL)`
   display: flex;

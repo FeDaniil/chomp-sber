@@ -2,42 +2,21 @@ import React, {useState} from "react";
 import styled from "styled-components";
 
 import "./GameBoard.css"
-import {ChompGame} from "../ChompGame";
+import GameBoardCell from "./GameBoardCell";
 
 const BoardWrapper = styled.div`
   display: grid;
 `;
 
-export default function GameBoard({game, setGame}) {
+export default function GameBoard({game, setGame, difficulty}) {
     const [previewInd, setPreviewInd] = useState(-1);
-    const setPreviewF = (i) => () => {
-        if (!game.isPoison(i))
-            setPreviewInd(i)
-    }
-    const unsetPreviewF = (i) => () => {
-        if (previewInd === i)
-            setPreviewInd(-1)
-    }
 
     let boardItems: JSX.Element[] = [];
     let field = game.field;
     let previewSet = new Set(previewInd !== -1 ? game.upperRightList(previewInd) : []);
     for (let i = 0; i < field.length; ++i) {
-        const playerClass = game.state === ChompGame.MOVE_PLAYER_1 ? "player-1" : "player-2";
-        const poisonClass = game.isPoison(i) ? "poison" : "";
-        const previewClass = previewSet.has(i) ? "preview" : "";
-        const previewMainClass = previewInd === i ? "preview-main" : "";
-        const transparentClass = !field[i] ? "transparent" : "";
-        const classAccumulated = `board-item ${playerClass} ${poisonClass} ${previewClass} ${previewMainClass} ${transparentClass}`;
-        boardItems.push(<div className={classAccumulated}
-                             onClick={() => {
-                                 if (field[i] && !game.isPoison(i))
-                                     setGame(game.afterMove(i));
-                             }}
-                             onMouseEnter={setPreviewF(i)}
-                             onPointerDown={setPreviewF(i)}
-                             onMouseLeave={unsetPreviewF(i)}
-                             onPointerUp={unsetPreviewF(i)}></div>)
+        boardItems.push(<GameBoardCell i={i} game={game} setGame={setGame} difficulty={difficulty}
+                                       previewInd={previewInd} setPreviewInd={setPreviewInd} previewSet={previewSet}/>)
     }
     const rows = game.rows;
     const columns = game.columns;
