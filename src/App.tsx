@@ -35,13 +35,16 @@ function initializeAssistant(getState) {
 
 function getWrapperWithInsets(insets) {
     return styled.div`
-      margin-left: ${insets.left}px;
-      margin-top: ${insets.top}px;
-      margin-right: ${insets.right}px;
-      margin-bottom: ${insets.bottom * 1.11}px; // Plasma is "a little" inaccurate, so need some safe margin
+      --insets-left: ${insets.left}px;
+      --insets-top: ${insets.top}px;
+      --insets-right: ${insets.right}px;
+      --insets-bottom: ${insets.bottom * 1.11}px; // Plasma is "a little" inaccurate, so need some safe margin
+      --insets: var(--insets-top) var(--insets-right) var(--insets-bottom) var(--insets-left);
 
-      width: calc(100vw - ${insets.left}px - ${insets.right}px);
-      height: calc(100vh - ${insets.top}px - ${insets.bottom * 1.11}px);
+      margin: var(--insets);
+
+      width: calc(100vw - var(--insets-left) - var(--insets-right));
+      height: calc(100vh - var(--insets-top) - var(--insets-bottom));
     `;
 }
 
@@ -64,13 +67,13 @@ export default function App() {
             appDidInit = true;
             assistantRef.current = initializeAssistant(() => assistantStateRef.current);
             assistantRef.current.on("data", (command) => {
-                console.log("FUCKING DATA:", command)
                 switch (command.type) {
                     case "character":
                         setCharacter(command.character.id);
                         break;
                     case "insets":
                         setAppWrapper(getWrapperWithInsets(command.insets));
+                        console.log(command.insets);
                         break;
                     default:
                         console.log("Unhandled on(data): " + command.type);
@@ -80,9 +83,24 @@ export default function App() {
         }
     }, []);
 
+    const [difficulty, setDifficulty] = useState(0);
+    const [page, setPage] = useState("start");
+
     return (
         <AppWrapper>
-            <Game rows={4} columns={7} characterName={characterIdToName.get(character)}/>
+            {(() => {
+                switch (page) {
+                    case "start":
+                        return <Start difficulty={difficulty} setDifficulty={setDifficulty}
+                                      setPageGame={() => setPage("game")}></Start>;
+                    case "game":
+                        return <Game rows={4} columns={7} difficulty={difficulty}
+                                     characterName={characterIdToName.get(character)}
+                                     setStartPage={() => setPage("start")}/>;
+                    default:
+                        return;
+                }
+            })()}
             <DocStyles/>
             {(() => {
                 switch (character) {

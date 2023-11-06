@@ -6,7 +6,6 @@ import {ChompGame} from "../ChompGame";
 
 const BoardWrapper = styled.div`
   display: grid;
-  overflow: hidden;
 `;
 
 export default function GameBoard({game, setGame}) {

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import {Button, Container, H1, TabItem, Tabs, TextL} from "@salutejs/plasma-ui";
 import styled from "styled-components";
@@ -11,9 +11,7 @@ const StartWrapper = styled.div`
   align-items: center;
 `;
 
-export default function Start() {
-    const [difficulty, setDifficulty] = useState(0);
-
+export default function Start({difficulty, setDifficulty, setPageGame}) {
     const tabs = [{label: "Легко"}, {label: "Средне"}, {label: "Сложно"}];
 
     return (<StartWrapper>
@@ -25,7 +23,8 @@ export default function Start() {
             Каждый ход игрок выбирает одну из оставшихся плиток.
             Тот, кто будет вынужден съесть ядовитую плитку, проигрывает.
         </TextL></Container>
-        <Container><Button text="Начать игру" size="l" view="primary" stretch={true}></Button></Container>
+        <Container><Button text="Начать игру" size="l" view="primary" stretch={true}
+                           onClick={setPageGame}></Button></Container>
         <Container><Tabs
             size="l"
             view="secondary"

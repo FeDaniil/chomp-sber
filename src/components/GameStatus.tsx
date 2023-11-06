@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import {TextL} from "@salutejs/plasma-ui";
 import {ChompGame} from "../ChompGame";
-import GameEnd from "./GameEnd";
 
 const GameStatusTextL = styled(TextL)`
   display: flex;
@@ -16,7 +15,7 @@ const GameStatusTextL = styled(TextL)`
 `;
 
 
-export default function GameStatus({gameState, characterName, gameFinished}) {
+export default function GameStatus({gameState, characterName}) {
     const textSpan =
         gameState === ChompGame.MOVE_PLAYER_1 ?
             <span style={{color: "#2AC673"}}>Ваш ход, отломите шоколадку</span> :
@@ -30,8 +29,6 @@ export default function GameStatus({gameState, characterName, gameFinished}) {
         <>
             <GameStatusTextL bold={gameState !== ChompGame.MOVE_PLAYER_2}>
                 {textSpan}
-                {gameFinished && <span style={{height: "1rem"}}></span>}
-                {gameFinished && <GameEnd/>}
             </GameStatusTextL>
         </>
     );
