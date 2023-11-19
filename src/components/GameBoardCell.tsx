@@ -34,7 +34,6 @@ export default function GameBoardCell({i, game, setGame, difficulty, previewInd,
                                     const itRes = await aiGenerator.next();
                                     const aiMove = itRes.value;
                                     if (tick % 10 === 0) setPreviewInd(aiMove);
-                                    console.log(aiMove);
                                     if (itRes.done) {
                                         await new Promise(resolve => setTimeout(resolve, 250));
                                         setGame(nextGame.afterMove(aiMove));
@@ -46,8 +45,6 @@ export default function GameBoardCell({i, game, setGame, difficulty, previewInd,
                         }
                     }
                 }}
-                onMouseEnter={setPreviewF(i)}
-                onPointerDown={setPreviewF(i)}
-                onMouseLeave={unsetPreviewF(i)}
-                onPointerUp={unsetPreviewF(i)}></div>;
+                onPointerEnter={setPreviewF(i)}
+                onPointerOut={unsetPreviewF(i)}/>
 }

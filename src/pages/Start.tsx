@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Button, Container, H1, TabItem, Tabs, TextL} from "@salutejs/plasma-ui";
+import {Button, Container, H2, TabItem, Tabs, TextM} from "@salutejs/plasma-ui";
 import styled from "styled-components";
 
 const StartWrapper = styled.div`
@@ -16,17 +16,17 @@ export default function Start({difficulty, setDifficulty, setPageGame}) {
 
     return (<StartWrapper>
         <img src="/chocolate.svg" alt="шоколадная плитка"
-             style={{height: "auto", width: "auto", maxWidth: "90vw", maxHeight: "40vh"}}/>
-        <Container><H1 style={{textAlign: "center"}}>Игра отравленная шоколадка</H1></Container>
-        <Container><TextL>
+             style={{height: "auto", width: "auto", maxWidth: "90vw", maxHeight: "20vh"}}/>
+        <Container><H2 style={{textAlign: "center"}}>Игра отравленная шоколадка</H2></Container>
+        <Container><TextM>
             Два игрока по очереди отламывают куски шоколадки.
             Каждый ход игрок выбирает одну из оставшихся плиток.
             Тот, кто будет вынужден съесть ядовитую плитку, проигрывает.
-        </TextL></Container>
-        <Container><Button text="Начать игру" size="l" view="primary" stretch={true}
+        </TextM></Container>
+        <Container><Button text="Начать игру" size="m" view="primary" stretch={true}
                            onClick={setPageGame}></Button></Container>
         <Container><Tabs
-            size="l"
+            size="m"
             view="secondary"
             stretch={true}
             pilled={false}

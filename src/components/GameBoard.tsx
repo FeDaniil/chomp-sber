@@ -6,6 +6,7 @@ import GameBoardCell from "./GameBoardCell";
 
 const BoardWrapper = styled.div`
   display: grid;
+  touch-action: none;
 `;
 
 export default function GameBoard({game, setGame, difficulty}) {
@@ -15,7 +16,7 @@ export default function GameBoard({game, setGame, difficulty}) {
     let field = game.field;
     let previewSet = new Set(previewInd !== -1 ? game.upperRightList(previewInd) : []);
     for (let i = 0; i < field.length; ++i) {
-        boardItems.push(<GameBoardCell i={i} game={game} setGame={setGame} difficulty={difficulty}
+        boardItems.push(<GameBoardCell key={`cell-${i}`} i={i} game={game} setGame={setGame} difficulty={difficulty}
                                        previewInd={previewInd} setPreviewInd={setPreviewInd} previewSet={previewSet}/>)
     }
     const rows = game.rows;
@@ -24,7 +25,8 @@ export default function GameBoard({game, setGame, difficulty}) {
         <BoardWrapper style={{
             gridTemplateColumns: `repeat(${rows}, calc(min((60vh - 115px) / ${columns * 1.1 - 0.1}, 90vw / ${rows * 1.1 - 0.1})))`,
             gap: `calc(min((70vh - 110px) / ${columns * 1.1 - 0.1}, 90vw / ${rows * 1.1 - 0.1}) / 10)`
-        }}>
+        }}
+            onPointerLeave={() => setPreviewInd(-1)}>
             {boardItems}
         </BoardWrapper>
     );
